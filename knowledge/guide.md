@@ -1,32 +1,23 @@
-# LibreSprite — guía profesional de Pixel Art y Animación para la IA
+# LibreSprite — Guía de Pixel Art y Animación de Ultra Alto Rendimiento para la IA
 
-Usa LibreSprite como un pixel artist senior y animador 2D. Una tarea completada es un sprite o animación con una paleta coherente, silueta clara, buen contraste, proporciones intencionales y frames fluidos.
+Usa LibreSprite como un pixel artist senior y animador 2D. Una tarea completada es un sprite o animación con paleta coherente, silueta clara, buen contraste, proporciones armónicas y frames fluidos.
 
-## 1. Principios del Pixel Art Profesional
-- **Resolución & Escala**:
-  - Iconos / Items: 16×16 o 24×24 px.
-  - Personajes / Enemigos: 24×24, 32×32 o 48×48 px.
-  - Retratos / Jefes: 64×64 o 96×96 px.
-  - Fondos / Escenarios: 128×72, 256×144 o 320×180 px.
-- **Paleta de Color Restringida**:
-  - Limita los colores a 4–8 tonos por material/personaje.
-  - Usa *hue-shifting*: sombras más frías (azuladas/púrpuras), luces más cálidas (amarillentas/doradas).
-  - Nunca uses sombras negras puras (#000000) ni luces blancas puras (#ffffff) salvo para reflejos extremos o contornos.
-- **Líneas y Silueta (Lineart)**:
-  - Evita "jaggies" (píxeles huérfanos que rompen las diagonales suaves).
-  - Evita "doubles" (píxeles adyacentes innecesarios en curvas).
-  - La silueta debe ser reconocible incluso en blanco y negro.
+## ⚡ Regla de Oro: Velocidad y Calidad (Mejor que PixeLab)
+Para evitar que la IA se quede "working... working..." escribiendo miles de caracteres a ciegas o cometiendo errores anatómicos:
+1. **Para Héroes Top-Down en 4 Direcciones**: Usa `libresprite_create_topdown_hero`. Genera en **0.06 segundos** un protagonista completo en sus 4 direcciones (Down, Up, Right, Left) con ciclo de caminata (16 frames), tags para LibreSprite y anatomía 100% sellada (sin huecos ni extremidades flotantes).
+2. **Para Tilesets y Terrenos**: Usa `libresprite_create_tileset`. Crea suelos 100% seamless para `TileMapLayer` con variaciones orgánicas (flores, briznas, guijarros) y bordes de remate.
+3. **Para Personajes Frontales**: Usa `libresprite_create_character` para personajes estáticos o idle (16x16 hasta 128x128).
+4. **Para Objetos/Armas**: Usa `libresprite_create_prop` (pociones, cofres, gemas, espadas).
+5. **Autocorrección Anatómica**: El motor ahora ejecuta automáticamente `fix_anatomical_gaps` y `clean_stray_pixels` para sellar cualquier hueco accidental entre cuello, torso y piernas.
+6. **Inspección Visual Real (Multimodal)**: Todas las herramientas devuelven `preview_image_path`. Usa `read_file` sobre ese archivo para que la IA vea el sprite con sus ojos neuronales y aplique auto-crítica antes de finalizar.
 
-## 2. Animación (Principios Clave)
-- **Framerate común**: 100 ms a 150 ms por frame (8–10 FPS para estilo retro; 12 FPS para mayor fluidez).
-- **Idle (Reposo)**: 4 a 6 frames (respiración, sutil movimiento de ropa/pelo, flexión de rodillas).
-- **Walk / Run (Caminar/Correr)**: 4 a 8 frames en bucle (contacto, amortiguación, pase, impulso).
-- **Attack (Ataque)**: Anticipación (1-2 frames lentos) -> Golpe rápido (1 frame de smear/impacto) -> Recuperación (2 frames).
+## 1. Resoluciones Recomendadas
+- **16×16 o 24×24**: Iconos, items, props, pociones, espadas o personajes estilo retro (Pico-8 / GameBoy).
+- **32×32**: Estándar dorado RPG retro (Chrono Trigger, Final Fantasy VI, Celeste).
+- **48×48**: Detalle alto anime / aventura (Castlevania, Mega Man X).
+- **64×64 o mayor**: Retratos detallados, jefes o personajes de alta definición.
+- **Tamaños libres**: Puedes usar rectángulos como 16×32 (personajes esbeltos) o 128×72 / 320×180 (escenarios/fondos).
 
-## 3. Flujo de Trabajo con las Herramientas
-1. `libresprite_status`: Verifica si LibreSprite está instalado y si la GUI está abierta.
-2. `libresprite_create_sprite`: Crea o dibuja un sprite individual pixel por pixel, con operaciones geométricas (rectángulos, elipses, líneas, dithering) y paletas profesionales (DB32, Sweetie 16, Pico-8, etc.).
-3. `libresprite_create_animation`: Genera animaciones completas con fotogramas secuenciales, exportando directamente a `.ase` (para abrir en LibreSprite) y `.gif` o `.png` (spritesheet) para usar en motores como Godot.
-4. `libresprite_export_sheet`: Empaqueta animaciones o archivos `.ase` en hojas de spritesheets con metadata JSON compatible con Godot y motores 2D.
-5. `libresprite_open`: Abre el archivo en el editor gráfico de LibreSprite para que el usuario pueda visualizarlo, retocarlo y reproducirlo en su interfaz.
-
+## 2. Paletas y Color
+- Utiliza **Hue-Shifting**: Sombras frías azuladas/violáceas y luces cálidas amarillentas/doradas.
+- Activa `outline_mode="selective"` para que los bordes oscuros se calculen armónicamente en vez de usar negro puro plano.

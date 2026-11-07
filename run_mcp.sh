@@ -2,14 +2,14 @@
 DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 cd "$DIR"
 
-# Asegurar acceso a las librerías instaladas en el sistema (mcp, PIL, etc.)
-export PYTHONPATH="/usr/lib/python3.14/site-packages:$DIR:$PYTHONPATH"
-
-# Usar el Python del venv de MCP (que tiene mcp instalado) o python3 del sistema
-if [ -x "/home/cachy/Descargas/MCP/.venv/bin/python" ]; then
+# Priorizar el entorno virtual local autónomo
+if [ -x "$DIR/.venv/bin/python" ]; then
+    PYTHON="$DIR/.venv/bin/python"
+elif [ -x "/home/cachy/Descargas/MCP/.venv/bin/python" ]; then
     PYTHON="/home/cachy/Descargas/MCP/.venv/bin/python"
 else
     PYTHON="python3"
 fi
 
+export PYTHONPATH="$DIR:$PYTHONPATH"
 exec "$PYTHON" "$DIR/server.py" "$@"
